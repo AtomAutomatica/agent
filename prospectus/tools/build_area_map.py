@@ -99,7 +99,7 @@ def main():
                     return True
             return not (10 <= x0 and x1 <= w - 10 and 10 <= y0 and y1 <= h - 120)
 
-        def add_box(ax, ay, line1, line2):
+        def add_box(ax, ay, line1, line2, is_gas=False):
             bw = max(draw.textlength(line1, font=f_b1),
                      draw.textlength(line2, font=f_b2)) + 26
             bh = 27 + 26 + 22
@@ -117,12 +117,30 @@ def main():
             x0, y0, x1, y1 = box
             cx0, cy0 = (x0 + x1) / 2, (y0 + y1) / 2
             draw.line([cx0, cy0, ax, ay], fill=(60, 60, 60, 255), width=2)
-            draw.rectangle(box, fill=(255, 244, 160, 240), outline=(40, 40, 40), width=3)
+            if is_gas:
+                draw.rectangle(box, fill=(255, 233, 202, 242), outline=RED, width=4)
+            else:
+                draw.rectangle(box, fill=(255, 244, 160, 240), outline=(40, 40, 40), width=3)
             draw.text((x0 + 12, y0 + 9), line1, font=f_b1, fill=(20, 20, 20))
-            draw.text((x0 + 12, y0 + 38), line2, font=f_b2, fill=(60, 60, 60))
+            draw.text((x0 + 12, y0 + 38), line2, font=f_b2,
+                      fill=RED if is_gas else (60, 60, 60))
 
-        oil_recs = [r for r in prod["oil"] if not r.get("no_pdq_data")]
-        gas_recs = [r for r in prod["gas"] if not r.get("no_pdq_data")]
+        # sales cut: box only the top producers (full listing on the table page)
+        OIL_BOX_MIN, GAS_BOX_MIN = 50_000, 1_000_000
+        oil_recs = [r for r in prod["oil"] if not r.get("no_pdq_data")
+                    and r.get("cum_oil_bbl", 0) >= OIL_BOX_MIN]
+        gas_recs = [r for r in prod["gas"] if not r.get("no_pdq_data")
+                    and r.get("cum_gas_mcf", 0) >= GAS_BOX_MIN]
+
+        # orange emphasis rings on the highlighted gas wells
+        for rec in gas_recs:
+            for a in rec["api5s"]:
+                if a in by_api5:
+                    gx, gy = to_px(by_api5[a]["geometry"]["x"],
+                                   by_api5[a]["geometry"]["y"], w, h)
+                    draw.ellipse([gx - 26, gy - 26, gx + 26, gy + 26],
+                                 outline=(235, 125, 0, 170), width=4)
+
         for rec in oil_recs + gas_recs:
             pts = [to_px(by_api5[a]["geometry"]["x"], by_api5[a]["geometry"]["y"], w, h)
                    for a in rec["api5s"] if a in by_api5]
@@ -137,7 +155,7 @@ def main():
             line1 = f"{name}{n_wells}"
             line2 = (f"{rec.get('cum_oil_bbl', 0):,} BBL · "
                      f"{rec.get('cum_gas_mcf', 0):,} MCF")
-            add_box(ax, ay, line1, line2)
+            add_box(ax, ay, line1, line2, is_gas=rec in gas_recs)
 
         live = [r for r in prod["oil"] + prod["gas"] if not r.get("no_pdq_data")]
         oil_total = sum(r.get("cum_oil_bbl", 0) for r in live)
@@ -175,7 +193,7 @@ def main():
         ("Injection / Disposal from Oil", "Injection / Disposal"),
         ("Water Supply", "Water Supply"),
     ]
-    band_h = 330 + (64 if totals_line else 0)
+    band_h = 362 + (64 if totals_line else 0)
     canvas = Image.new("RGBA", (w, h + band_h), (255, 255, 255, 255))
     canvas.alpha_composite(flat, (0, 0))
     d2 = ImageDraw.Draw(canvas)
@@ -196,12 +214,15 @@ def main():
         sw = sw.resize((44, 44))
         canvas.alpha_composite(sw, (cx, cy))
         d2.text((cx + 58, cy + 6), label, font=f_leg, fill=INK)
-    # third row: emphasis ring, Robinson marker, and the one remaining class
+    # third row: emphasis rings, Robinson marker, and the one remaining class
     cy = h + yoff + 44 + 2 * 62
     cx = 60
     d2.ellipse([cx + 8, cy + 8, cx + 40, cy + 40], outline=OIL_GREEN + (150,), width=4)
-    d2.text((cx + 58, cy + 6), "Emphasis ring — active oil well", font=f_leg, fill=INK)
-    cx = 60 + int(1.6 * col_w)
+    d2.text((cx + 58, cy + 6), "Active oil well (ring)", font=f_leg, fill=INK)
+    cx = 60 + col_w
+    d2.ellipse([cx + 8, cy + 8, cx + 40, cy + 40], outline=(235, 125, 0), width=4)
+    d2.text((cx + 58, cy + 6), "Top gas well (ring)", font=f_leg, fill=INK)
+    cx = 60 + 2 * col_w
     d2.ellipse([cx + 8, cy + 8, cx + 40, cy + 40], outline=RED + (255,), width=6)
     d2.text((cx + 58, cy + 6), "Robinson #1 location", font=f_legb, fill=RED)
     cx = 60 + 3 * col_w
@@ -209,17 +230,14 @@ def main():
     canvas.alpha_composite(sw.resize((44, 44)), (cx, cy))
     d2.text((cx + 58, cy + 6), "Shut-In Gas", font=f_leg, fill=INK)
     f_cred = ImageFont.truetype(FR, 24)
-    d2.text(
-        (60, h + band_h - 76),
-        "Sources: RRC Public GIS Viewer (gis.rrc.texas.gov) well locations; RRC Production Data",
-        font=f_cred, fill=GRAY,
-    )
-    d2.text(
-        (60, h + band_h - 44),
-        "Query, cum. reported production Jan 1993 – present, retrieved July 2026 (oil incl. "
-        "condensate; gas incl. casinghead). Box positions approximate.",
-        font=f_cred, fill=GRAY,
-    )
+    credit_lines = [
+        "Sources: RRC Public GIS Viewer (gis.rrc.texas.gov) well locations; RRC Production "
+        "Data Query, retrieved July 2026.",
+        "Cum. reported production Jan 1993 – present (oil incl. condensate; gas incl. casinghead).",
+        "Top producers boxed — full listing in the Area Production table. Box positions approximate.",
+    ]
+    for i, ln in enumerate(credit_lines):
+        d2.text((60, h + band_h - 108 + i * 32), ln, font=f_cred, fill=GRAY)
 
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     canvas.convert("RGB").save(OUT)
