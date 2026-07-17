@@ -73,7 +73,7 @@ def main():
     w1 = draw.textlength(line1, font=f_call)
     w2 = draw.textlength(line2, font=f_call2)
     bw, bh = max(w1, w2) + pad * 2, 40 + 30 + pad * 2 + 10
-    bx, by = rx - bw - 150, ry - bh - 130
+    bx, by = rx - bw - 150, ry - bh - 210
     draw.line([rx - 34, ry - 34, bx + bw - 40, by + bh], fill=RED + (255,), width=5)
     draw.rectangle([bx, by, bx + bw, by + bh], fill=(255, 255, 255, 242), outline=RED + (255,), width=6)
     draw.text((bx + pad, by + pad - 4), line1, font=f_call, fill=RED)
@@ -124,10 +124,13 @@ def main():
         sw = sw.resize((44, 44))
         canvas.alpha_composite(sw, (cx, cy))
         d2.text((cx + 58, cy + 6), label, font=f_leg, fill=INK)
-    # Robinson marker sample in legend
+    # Robinson marker and oil-emphasis ring samples in legend
     cx, cy = 60, h + 44 + 2 * 62
     d2.ellipse([cx + 8, cy + 8, cx + 40, cy + 40], outline=RED + (255,), width=6)
     d2.text((cx + 58, cy + 6), "Robinson #1 — permitted location", font=f_legb, fill=RED)
+    cx = 60 + 2 * col_w
+    d2.ellipse([cx + 8, cy + 8, cx + 40, cy + 40], outline=OIL_GREEN + (150,), width=4)
+    d2.text((cx + 58, cy + 6), "Emphasis ring — active oil well", font=f_leg, fill=INK)
     d2.text(
         (60, h + band_h - 46),
         "Source: Railroad Commission of Texas — Public GIS Viewer (gis.rrc.texas.gov), "
