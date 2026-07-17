@@ -225,57 +225,62 @@ def exec_summary_page():
     )
 
 
-def production_page():
+def production_page(folio=25, map_ref="the Area Wells Map, page 24"):
     data = json.load(open(PROD_JSON))
 
     def fmt(n):
         return f"{int(round(n)):,}" if isinstance(n, (int, float)) else "&mdash;"
 
-    def card(entry, api5s_label):
-        stats = (
-            '<div class="pc-stats">'
-            f'<div class="pc-stat"><div class="v">{fmt(entry.get("cum_oil_bbl"))}</div>'
-            '<div class="l">Cum Oil, BBL</div></div>'
-            f'<div class="pc-stat"><div class="v">{fmt(entry.get("cum_gas_mcf"))}</div>'
-            '<div class="l">Cum Gas, MCF</div></div>'
-            '</div>'
-        )
-        meta = " &middot; ".join(x for x in [
-            html.escape(entry.get("operator") or ""),
-            html.escape(entry.get("field") or ""),
-            f'Dist. {html.escape(str(entry.get("district") or ""))} &middot; Lease {html.escape(str(entry.get("lease_no") or ""))}',
-            api5s_label,
-        ] if x)
+    def row(e, kind):
+        wells = ", ".join(e.get("well_nos", []))
+        apis = ", ".join(e.get("api5s", []))
+        if e.get("no_pdq_data"):
+            o = g = "&mdash;"
+            period = "no production reported since Jan 1993"
+        else:
+            o, g = fmt(e.get("cum_oil_bbl")), fmt(e.get("cum_gas_mcf"))
+            period = e.get("period", "")
         return (
-            '<div class="prod-card">'
-            f'<div class="pc-name">{html.escape(entry.get("lease_name") or "")}</div>'
-            f'<div class="pc-meta">{meta}</div>'
-            f'{stats}</div>'
+            "<tr>"
+            f'<td class="l">{html.escape(e.get("lease_name") or "")}</td>'
+            f'<td>{html.escape(wells)}</td>'
+            f'<td>{html.escape(apis)}</td>'
+            f'<td class="l">{html.escape(e.get("field") or "")}</td>'
+            f'<td class="l">{html.escape(e.get("operator") or "")}</td>'
+            f'<td class="n">{o}</td>'
+            f'<td class="n">{g}</td>'
+            f'<td>{html.escape(period)}</td>'
+            "</tr>"
         )
 
-    cards = ['<div class="prod-sechead">Oil Leases &mdash; Ranked by Cumulative Oil</div>']
-    for e in data["oil"][:6]:
-        apis = ", ".join(f"42-467-{a}" for a in e.get("api5s", [])[:3])
-        cards.append(card(e, f'API {apis}'))
-    if data.get("gas"):
-        cards.append('<div class="prod-sechead">Gas Wells &mdash; Ranked by Cumulative Gas</div>')
-        for e in data["gas"][:4]:
-            apis = ", ".join(f"42-467-{a}" for a in e.get("api5s", [])[:3])
-            cards.append(card(e, f'API {apis}'))
+    oil = data["oil"]
+    gas = data["gas"]
+    oil_total = sum(e.get("cum_oil_bbl", 0) for e in oil if not e.get("no_pdq_data"))
+    gas_total = (sum(e.get("cum_gas_mcf", 0) for e in gas if not e.get("no_pdq_data"))
+                 + sum(e.get("cum_gas_mcf", 0) for e in oil if not e.get("no_pdq_data")))
+
+    head = ('<tr><th>Lease / Unit</th><th>Well No(s).</th><th>API5 No(s).</th><th>Field</th>'
+            '<th>Operator</th><th>Cum Oil (BBL)</th><th>Cum Gas (MCF)</th><th>Reported Period</th></tr>')
+    sec_oil = f'<tr class="sec"><td colspan="8">OIL LEASES &mdash; RANKED BY CUMULATIVE OIL</td></tr>'
+    sec_gas = f'<tr class="sec"><td colspan="8">GAS WELLS &mdash; RANKED BY CUMULATIVE GAS</td></tr>'
+    tot = (f'<tr class="tot"><td colspan="5">AREA TOTAL &mdash; REPORTED TO RRC SINCE JAN 1993</td>'
+           f'<td class="n">{fmt(oil_total)}</td><td class="n">{fmt(gas_total)}</td><td></td></tr>')
+    table = ('<table class="prod-table">' + head + sec_oil
+             + "".join(row(e, "oil") for e in oil) + sec_gas
+             + "".join(row(e, "gas") for e in gas) + tot + "</table>")
 
     note = (
-        "Cumulative production as reported to the Railroad Commission of Texas, "
-        f'Production Data Query (webapps.rrc.texas.gov/PDQ), retrieved {html.escape(data["retrieved"])}. '
-        "PDQ coverage begins January 1993; totals reflect production reported from that date. Texas oil "
-        "production is reported per lease (all wells on the lease combined); gas production per gas well ID. "
-        "Wells shown are the active oil and gas wells on the Area Wells Map, page 24."
+        "As reported to the Railroad Commission of Texas &mdash; Production Data Query "
+        f'(webapps.rrc.texas.gov/PDQ), retrieved {html.escape(data["retrieved"])}; coverage begins Jan '
+        "1993. Oil is reported per lease (wells combined; gas figure is casinghead gas); gas is "
+        f"reported per gas well ID (oil figure is condensate). Wells are those shown on {map_ref}."
     )
     return (
         '<section class="page">'
         f'{chrome()}'
-        f'{titleblock(25, "Production", "Area Production", "RRC Production Data Query &middot; Cumulative Reported Production")}'
+        f'{titleblock(folio, "Production", "Area Production", "RRC Production Data Query &middot; Cumulative Reported Production")}'
         f'<div class="prod-note">{note}</div>'
-        f'<div class="prod-grid">{"".join(cards)}</div>'
+        f'<div class="prod-tablewrap">{table}</div>'
         f'{footer()}'
         '</section>'
     )
@@ -326,16 +331,30 @@ def main():
             pages.append(exhibit_page(n, kicker.upper(), title, sub, img, bare))
     pages.append(contact_page())
 
-    doc = (
-        "<!DOCTYPE html><html><head><meta charset='utf-8'>"
-        "<title>Ferox Oil — Robinson #1</title>"
-        "<link rel='stylesheet' href='../assets/fonts/fonts.css'>"
-        "<link rel='stylesheet' href='style.css'>"
-        "</head><body>" + "".join(pages) + "</body></html>"
-    )
+    def wrap(body, title):
+        return (
+            "<!DOCTYPE html><html><head><meta charset='utf-8'>"
+            f"<title>{title}</title>"
+            "<link rel='stylesheet' href='../assets/fonts/fonts.css'>"
+            "<link rel='stylesheet' href='style.css'>"
+            "</head><body>" + body + "</body></html>"
+        )
+
     with open(OUT, "w") as fh:
-        fh.write(doc)
+        fh.write(wrap("".join(pages), "Ferox Oil — Robinson #1"))
     print(f"wrote {OUT} ({len(pages)} pages)")
+
+    # standalone two-pager: area wells map + production table
+    standalone = [
+        exhibit_page(1, "PRODUCTION", "Area Wells Map",
+                     "RRC Public GIS Viewer &middot; Active Oil Wells Near the Robinson Lease",
+                     "GENERATED:robinson-area-wells.png", False),
+        production_page(folio=2, map_ref="the Area Wells Map, page 1"),
+    ]
+    sa_out = os.path.join(ROOT, "build", "standalone.html")
+    with open(sa_out, "w") as fh:
+        fh.write(wrap("".join(standalone), "Ferox Oil — Robinson #1 Area Wells & Production"))
+    print(f"wrote {sa_out} (2 pages)")
 
 
 if __name__ == "__main__":
