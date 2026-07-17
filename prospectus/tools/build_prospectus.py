@@ -21,42 +21,58 @@ WEBSITE = "www.feroxoil.com"
 PHONE = "P: (214) 257 - 0319"
 
 TOC = [
-    ("03", "Summary"),
-    ("04", "Site Access Map"),
-    ("05", "Producing Zones"),
-    ("06", "Structure"),
-    ("12", "Formations"),
-    ("18", "Permit"),
-    ("23", "Proven Production"),
-    ("25", "Financial Projection"),
-    ("26", "Contact Information"),
+    ("03", "Executive Summary"),
+    ("04", "Geologist's Summary"),
+    ("05", "Site Access Map"),
+    ("06", "Producing Zones"),
+    ("07", "Structure"),
+    ("13", "Formations"),
+    ("19", "Permit"),
+    ("24", "Proven Production"),
+    ("26", "Financial Projection"),
+    ("27", "Contact Information"),
 ]
 
 # (page, kicker, title, subtitle, exhibit file, bare)
 EXHIBIT_PAGES = [
-    (3,  "Overview",   "Summary", "Consulting Geologist &amp; Drilling Superintendent Report", "page02_x3.png", False),
-    (4,  "Location",   "Site Access Map", "C.J. Robinson Well #1 &middot; Van Zandt County, Texas", "page03_x10.png", False),
-    (5,  "Geology",    "Producing Zones", "Principal Oil-Producing Stratigraphic Units &middot; Gulf Coast &amp; East Texas Basins", "page04_x15.png", False),
-    (6,  "Geology",    "Structure", "East Texas Salt Structure Province &middot; Quitman Field Cross Section", "page05_x19.png", False),
-    (7,  "Geology",    "Quitman Field", "Neighboring Field, Wood County &mdash; Complex Fault System", "page06_x24.png", False),
-    (8,  "Geology",    "East Texas Basin", "Isometric Block Diagram &middot; Louann Salt Configuration", "page07_x30.png", False),
-    (9,  "Geology",    "Structural Elements", "Major Structural Elements of the East Texas Basin", "page08_x34.png", False),
-    (10, "Geology",    "Electrical Curves", "Electrical Curves &amp; Lithology", "page09_x40.png", False),
-    (11, "Geology",    "Stratigraphic Cross Section", "Kaufman &amp; Van Zandt Counties", "page10_x46.png", False),
-    (12, "Formations", "Austin Chalk 3,800&prime;", None, "page11_x50.png", False),
-    (13, "Formations", "Paluxy 7,700&prime;", None, "page12_x56.png", False),
-    (14, "Formations", "Smackover 15,000&prime;", None, "page13_x60.png", False),
-    (15, "Formations", "Myrtle Springs Field", "Van Zandt County, Texas", "page14_x64.png", False),
-    (16, "Formations", "Travis Peak Completion", "Fruitvale Field, Van Zandt County, Texas", "page15_x69.png", False),
-    (17, "Formations", "Myrtle Springs Field &mdash; Type Section", "Van Zandt County, Texas", "page16_x74.png", False),
-    (18, "Permit",     "Permit", "Railroad Commission of Texas &middot; Form W-1 &middot; Approved", "page17_x81.png", False),
-    (19, "Permit",     "RRC Map &mdash; Well Site", "Van Zandt County, Texas", "page18_x92.png", False),
-    (20, "Permit",     "Permit Plat", "Ephraim Vansickle Survey, Abstract 885, Van Zandt County, Texas", "page19_x97.png", False),
-    (21, "Land",       "Tobin Ownership Map", "C.J. Robinson &middot; 81 Acres", "page20_x101.png", False),
-    (22, "Permit",     "RRC Permit Records", "Railroad Commission of Texas Online System", "page21_x105.png", False),
-    # 23 = text page, built separately
-    (24, "Reference",  "Geology of Texas", "Bureau of Economic Geology &middot; The University of Texas at Austin", "page23_x114.png", False),
-    (25, "Financial",  "Financial Projection", "Potential Monthly Return on 1% &middot; $65 / $75 / $85 Oil Price Scenarios", "page24_x119.png", False),
+    (4,  "Overview",   "Geologist&rsquo;s Summary", "Consulting Geologist &amp; Drilling Superintendent Report", "page02_x3.png", False),
+    (5,  "Location",   "Site Access Map", "C.J. Robinson Well #1 &middot; Van Zandt County, Texas", "page03_x10.png", False),
+    (6,  "Geology",    "Producing Zones", "Principal Oil-Producing Stratigraphic Units &middot; Gulf Coast &amp; East Texas Basins", "page04_x15.png", False),
+    (7,  "Geology",    "Structure", "East Texas Salt Structure Province &middot; Quitman Field Cross Section", "page05_x19.png", False),
+    (8,  "Geology",    "Quitman Field", "Neighboring Field, Wood County &mdash; Complex Fault System", "page06_x24.png", False),
+    (9,  "Geology",    "East Texas Basin", "Isometric Block Diagram &middot; Louann Salt Configuration", "page07_x30.png", False),
+    (10, "Geology",    "Structural Elements", "Major Structural Elements of the East Texas Basin", "page08_x34.png", False),
+    (11, "Geology",    "Electrical Curves", "Electrical Curves &amp; Lithology", "page09_x40.png", False),
+    (12, "Geology",    "Stratigraphic Cross Section", "Kaufman &amp; Van Zandt Counties", "page10_x46.png", False),
+    (13, "Formations", "Austin Chalk 3,800&prime;", None, "page11_x50.png", False),
+    (14, "Formations", "Paluxy 7,700&prime;", None, "page12_x56.png", False),
+    (15, "Formations", "Smackover 15,000&prime;", None, "page13_x60.png", False),
+    (16, "Formations", "Myrtle Springs Field", "Van Zandt County, Texas", "page14_x64.png", False),
+    (17, "Formations", "Travis Peak Completion", "Fruitvale Field, Van Zandt County, Texas", "page15_x69.png", False),
+    (18, "Formations", "Myrtle Springs Field &mdash; Type Section", "Van Zandt County, Texas", "page16_x74.png", False),
+    (19, "Permit",     "Permit", "Railroad Commission of Texas &middot; Form W-1 &middot; Approved", "page17_x81.png", False),
+    (20, "Permit",     "RRC Map &mdash; Well Site", "Van Zandt County, Texas", "page18_x92.png", False),
+    (21, "Permit",     "Permit Plat", "Ephraim Vansickle Survey, Abstract 885, Van Zandt County, Texas", "page19_x97.png", False),
+    (22, "Land",       "Tobin Ownership Map", "C.J. Robinson &middot; 81 Acres", "page20_x101.png", False),
+    (23, "Permit",     "RRC Permit Records", "Railroad Commission of Texas Online System", "page21_x105.png", False),
+    # 24 = text page, built separately
+    (25, "Reference",  "Geology of Texas", "Bureau of Economic Geology &middot; The University of Texas at Austin", "page23_x114.png", False),
+    (26, "Financial",  "Financial Projection", "Potential Monthly Return on 1% &middot; $65 / $75 / $85 Oil Price Scenarios", "page24_x119.png", False),
+]
+
+EXEC_SUMMARY_INTRO = (
+    "Ferox Oil, LLC plans to drill a vertical well to a total depth of "
+    "8,900&nbsp;+/- ft. in the Fruitvale Field area of Van Zandt County, "
+    "Texas. The Cotton Valley and the Travis Peak are the primary targets, "
+    "with production potential from as many as seventeen (17) proven oil and "
+    "gas bearing formations in the area."
+)
+
+EXEC_SUMMARY_ROWS = [
+    ("Location", "Van Zandt County, TX"),
+    ("Working Interest per Unit", "1.0%"),
+    ("Net Revenue Interest per Unit", ".75%"),
+    ("Total Price per Unit", "$45,000.00 &nbsp;&middot;&nbsp; Drilling, Testing and Completion"),
 ]
 
 STACKED_PARAGRAPHS = [
@@ -183,12 +199,30 @@ def exhibit_page(num, kicker, title, subtitle, img, bare):
     )
 
 
+def exec_summary_page():
+    rows = "".join(
+        f'<div class="exec-row"><div class="exec-label">{label}</div>'
+        f'<div class="exec-value">{value}</div></div>'
+        for label, value in EXEC_SUMMARY_ROWS
+    )
+    return (
+        '<section class="page">'
+        f'{chrome()}'
+        f'{titleblock(3, "Overview", "Executive Summary", "Robinson #1 &middot; Van Zandt County, Texas")}'
+        f'<div class="exec-intro">{EXEC_SUMMARY_INTRO}</div>'
+        f'<div class="exec-rows">{rows}</div>'
+        f'<div class="disclaimer">{DISCLAIMER}</div>'
+        f'{footer()}'
+        '</section>'
+    )
+
+
 def text_page():
     paras = "".join(f"<p>{p}</p>" for p in STACKED_PARAGRAPHS)
     return (
         '<section class="page">'
         f'{chrome()}'
-        f'{titleblock(23, "Production", "Multiple Stacked Proven Production", "Van Zandt County &middot; East Texas Salt Structure Province")}'
+        f'{titleblock(24, "Production", "Multiple Stacked Proven Production", "Van Zandt County &middot; East Texas Salt Structure Province")}'
         f'<div class="bodytext">{paras}</div>'
         f'{footer()}'
         '</section>'
@@ -216,10 +250,10 @@ def contact_page():
 
 
 def main():
-    pages = [cover_page(), toc_page()]
+    pages = [cover_page(), toc_page(), exec_summary_page()]
     by_num = {p[0]: p for p in EXHIBIT_PAGES}
-    for num in range(3, 26):
-        if num == 23:
+    for num in range(4, 27):
+        if num == 24:
             pages.append(text_page())
         else:
             n, kicker, title, sub, img, bare = by_num[num]

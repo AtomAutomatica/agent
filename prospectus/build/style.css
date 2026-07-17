@@ -216,6 +216,38 @@ h1.title {
 }
 .toc-label { font-size: 11.5pt; font-weight: 500; letter-spacing: 0.03em; }
 
+/* ---------- executive summary ---------- */
+
+.exec-intro {
+  position: absolute;
+  top: 2.25in; left: 0.85in; right: 0.85in;
+  font-size: 11.5pt;
+  line-height: 1.7;
+  color: #26282d;
+}
+.exec-rows {
+  position: absolute;
+  top: 3.75in; left: 0.85in; right: 0.85in;
+}
+.exec-row {
+  padding: 0.16in 0 0.15in 0.28in;
+  border-left: 3px solid var(--red);
+  margin-bottom: 0.28in;
+}
+.exec-label {
+  font-weight: 600;
+  font-size: 9pt;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+.exec-value {
+  margin-top: 0.04in;
+  font-size: 14pt;
+  font-weight: 600;
+  color: var(--ink);
+}
+
 /* ---------- text page ---------- */
 
 .bodytext {
