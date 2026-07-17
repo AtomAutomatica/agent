@@ -28,9 +28,10 @@ TOC = [
     ("07", "Structure"),
     ("13", "Formations"),
     ("19", "Permit"),
-    ("24", "Proven Production"),
-    ("26", "Financial Projection"),
-    ("27", "Contact Information"),
+    ("24", "Area Wells Map"),
+    ("25", "Proven Production"),
+    ("27", "Financial Projection"),
+    ("28", "Contact Information"),
 ]
 
 # (page, kicker, title, subtitle, exhibit file, bare)
@@ -55,9 +56,10 @@ EXHIBIT_PAGES = [
     (21, "Permit",     "Permit Plat", "Ephraim Vansickle Survey, Abstract 885, Van Zandt County, Texas", "page19_x97.png", False),
     (22, "Land",       "Tobin Ownership Map", "C.J. Robinson &middot; 81 Acres", "page20_x101.png", False),
     (23, "Permit",     "RRC Permit Records", "Railroad Commission of Texas Online System", "page21_x105.png", False),
-    # 24 = text page, built separately
-    (25, "Reference",  "Geology of Texas", "Bureau of Economic Geology &middot; The University of Texas at Austin", "page23_x114.png", False),
-    (26, "Financial",  "Financial Projection", "Potential Monthly Return on 1% &middot; $65 / $75 / $85 Oil Price Scenarios", "page24_x119.png", False),
+    (24, "Production", "Area Wells Map", "RRC Public GIS Viewer &middot; Active Oil Wells Near the Robinson Lease", "GENERATED:robinson-area-wells.png", False),
+    # 25 = text page, built separately
+    (26, "Reference",  "Geology of Texas", "Bureau of Economic Geology &middot; The University of Texas at Austin", "page23_x114.png", False),
+    (27, "Financial",  "Financial Projection", "Potential Monthly Return on 1% &middot; $65 / $75 / $85 Oil Price Scenarios", "page24_x119.png", False),
 ]
 
 EXEC_SUMMARY_INTRO = (
@@ -188,12 +190,15 @@ def toc_page():
 
 def exhibit_page(num, kicker, title, subtitle, img, bare):
     cls = "exhibit bare" if bare else "exhibit"
-    jpg = img.replace(".png", ".jpg")
+    if img.startswith("GENERATED:"):
+        src = f"{A}/generated/{img.split(':', 1)[1]}"
+    else:
+        src = f"{EX}/{img.replace('.png', '.jpg')}"
     return (
         '<section class="page">'
         f'{chrome()}'
         f'{titleblock(num, kicker, title, subtitle)}'
-        f'<div class="content"><img class="{cls}" src="{EX}/{jpg}" alt=""></div>'
+        f'<div class="content"><img class="{cls}" src="{src}" alt=""></div>'
         f'{footer()}'
         '</section>'
     )
@@ -222,7 +227,7 @@ def text_page():
     return (
         '<section class="page">'
         f'{chrome()}'
-        f'{titleblock(24, "Production", "Multiple Stacked Proven Production", "Van Zandt County &middot; East Texas Salt Structure Province")}'
+        f'{titleblock(25, "Production", "Multiple Stacked Proven Production", "Van Zandt County &middot; East Texas Salt Structure Province")}'
         f'<div class="bodytext">{paras}</div>'
         f'{footer()}'
         '</section>'
@@ -252,8 +257,8 @@ def contact_page():
 def main():
     pages = [cover_page(), toc_page(), exec_summary_page()]
     by_num = {p[0]: p for p in EXHIBIT_PAGES}
-    for num in range(4, 27):
-        if num == 24:
+    for num in range(4, 28):
+        if num == 25:
             pages.append(text_page())
         else:
             n, kicker, title, sub, img, bare = by_num[num]
