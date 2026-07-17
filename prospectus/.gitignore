@@ -1,0 +1,5 @@
+# QA-only artifacts (regenerable from the source PDFs / build)
+assets/originals/
+assets/extracted/lilly_email/
+assets/extracted/lilly_agreement/
+output/pages/
