@@ -37,8 +37,8 @@ EXHIBIT_PAGES = [
     (3,  "Overview",   "Summary", "Consulting Geologist &amp; Drilling Superintendent Report", "page02_x3.png", False),
     (4,  "Location",   "Site Access Map", "C.J. Robinson Well #1 &middot; Van Zandt County, Texas", "page03_x10.png", False),
     (5,  "Geology",    "Producing Zones", "Principal Oil-Producing Stratigraphic Units &middot; Gulf Coast &amp; East Texas Basins", "page04_x15.png", False),
-    (6,  "Geology",    "Structure", "East Texas Salt Structure Province", "page05_x19.png", False),
-    (7,  "Geology",    "Quitman Field", "Neighboring Field, Wood County &middot; Complex Fault System Forming Dozens of Oil Traps", "page06_x24.png", False),
+    (6,  "Geology",    "Structure", "East Texas Salt Structure Province &middot; Quitman Field Cross Section", "page05_x19.png", False),
+    (7,  "Geology",    "Quitman Field", "Neighboring Field, Wood County &mdash; Complex Fault System", "page06_x24.png", False),
     (8,  "Geology",    "East Texas Basin", "Isometric Block Diagram &middot; Louann Salt Configuration", "page07_x30.png", False),
     (9,  "Geology",    "Structural Elements", "Major Structural Elements of the East Texas Basin", "page08_x34.png", False),
     (10, "Geology",    "Electrical Curves", "Electrical Curves &amp; Lithology", "page09_x40.png", False),
@@ -50,9 +50,9 @@ EXHIBIT_PAGES = [
     (16, "Formations", "Travis Peak Completion", "Fruitvale Field, Van Zandt County, Texas", "page15_x69.png", False),
     (17, "Formations", "Myrtle Springs Field &mdash; Type Section", "Van Zandt County, Texas", "page16_x74.png", False),
     (18, "Permit",     "Permit", "Railroad Commission of Texas &middot; Form W-1 &middot; Approved", "page17_x81.png", False),
-    (19, "Permit",     "RRC Map &mdash; Well Site", "Railroad Commission of Texas GIS Viewer", "page18_x92.png", False),
+    (19, "Permit",     "RRC Map &mdash; Well Site", "Van Zandt County, Texas", "page18_x92.png", False),
     (20, "Permit",     "Permit Plat", "Ephraim Vansickle Survey, Abstract 885, Van Zandt County, Texas", "page19_x97.png", False),
-    (21, "Permit",     "Tobin Ownership Map", "C.J. Robinson &middot; 81 Acres", "page20_x101.png", False),
+    (21, "Land",       "Tobin Ownership Map", "C.J. Robinson &middot; 81 Acres", "page20_x101.png", False),
     (22, "Permit",     "RRC Permit Records", "Railroad Commission of Texas Online System", "page21_x105.png", False),
     # 23 = text page, built separately
     (24, "Reference",  "Geology of Texas", "Bureau of Economic Geology &middot; The University of Texas at Austin", "page23_x114.png", False),
@@ -81,7 +81,7 @@ STACKED_PARAGRAPHS = [
     "through some, if not all, of the formations above this salt and have "
     "created these four (4) surrounding fields as oil and gas became trapped "
     "and accumulated. All of the salt domes in the East Texas salt structure "
-    "province have created dozens of fields throughout the province as these "
+    "province have created dozens of fields throughout the province and these "
     "domes push upward in their migration toward the surface. The probability "
     "of undiscovered trapped oil and gas within any of these seventeen (17) "
     "plus formations is high due to this &ldquo;under drilling&rdquo; of the "
