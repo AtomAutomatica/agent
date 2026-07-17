@@ -38,6 +38,10 @@ paper = img.crop((620, 150, 780, 200)).resize((1, 1)).getpixel((0, 0))
 img.paste(Image.new("RGB", (600 - 240, 191 - 164), paper), (240, 164))
 save(img, "page03_x10.png")
 
+# page06 — trim the comb-binding hole strip the original book cropped off
+img = load("page06_x24.png")
+save(img.crop((25, 0, img.width, img.height)), "page06_x24.png")
+
 # page09 — rotate back to display orientation
 save(load("page09_x40.png").transpose(Image.ROTATE_270), "page09_x40.png")
 

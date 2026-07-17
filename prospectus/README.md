@@ -22,6 +22,8 @@ contents, cleaned-up template typos, and a new cover and contact page.
 
 ```sh
 python3 tools/extract_assets.py    # one-time: pull exhibits from source PDFs
+python3 tools/patch_exhibits.py    # one-time: restore as-delivered appearance
+                                   # (rotations, hidden-layer cover-ups, crops)
 python3 tools/optimize_images.py   # one-time: JPEG-flatten exhibits
 bash tools/make_pdf.sh             # generate HTML, print to PDF via Chromium,
                                    # render per-page QA PNGs
