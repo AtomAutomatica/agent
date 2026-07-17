@@ -255,15 +255,16 @@ def production_page(folio=25, map_ref="the Area Wells Map, page 24"):
 
     oil = data["oil"]
     gas = data["gas"]
-    oil_total = sum(e.get("cum_oil_bbl", 0) for e in oil if not e.get("no_pdq_data"))
-    gas_total = (sum(e.get("cum_gas_mcf", 0) for e in gas if not e.get("no_pdq_data"))
-                 + sum(e.get("cum_gas_mcf", 0) for e in oil if not e.get("no_pdq_data")))
+    live = [e for e in oil + gas if not e.get("no_pdq_data")]
+    oil_total = sum(e.get("cum_oil_bbl", 0) for e in live)
+    gas_total = sum(e.get("cum_gas_mcf", 0) for e in live)
 
     head = ('<tr><th>Lease / Unit</th><th>Well No(s).</th><th>API5 No(s).</th><th>Field</th>'
             '<th>Operator</th><th>Cum Oil (BBL)</th><th>Cum Gas (MCF)</th><th>Reported Period</th></tr>')
     sec_oil = f'<tr class="sec"><td colspan="8">OIL LEASES &mdash; RANKED BY CUMULATIVE OIL</td></tr>'
     sec_gas = f'<tr class="sec"><td colspan="8">GAS WELLS &mdash; RANKED BY CUMULATIVE GAS</td></tr>'
-    tot = (f'<tr class="tot"><td colspan="5">AREA TOTAL &mdash; REPORTED TO RRC SINCE JAN 1993</td>'
+    tot = (f'<tr class="tot"><td colspan="5">AREA TOTAL &mdash; REPORTED TO RRC SINCE JAN 1993 '
+           f'(OIL INCL. CONDENSATE; GAS INCL. CASINGHEAD)</td>'
            f'<td class="n">{fmt(oil_total)}</td><td class="n">{fmt(gas_total)}</td><td></td></tr>')
     table = ('<table class="prod-table">' + head + sec_oil
              + "".join(row(e, "oil") for e in oil) + sec_gas

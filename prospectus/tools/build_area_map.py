@@ -122,7 +122,7 @@ def main():
             draw.text((x0 + 12, y0 + 38), line2, font=f_b2, fill=(60, 60, 60))
 
         oil_recs = [r for r in prod["oil"] if not r.get("no_pdq_data")]
-        gas_recs = [r for r in prod["gas"] if not r.get("no_pdq_data")][:6]
+        gas_recs = [r for r in prod["gas"] if not r.get("no_pdq_data")]
         for rec in oil_recs + gas_recs:
             pts = [to_px(by_api5[a]["geometry"]["x"], by_api5[a]["geometry"]["y"], w, h)
                    for a in rec["api5s"] if a in by_api5]
@@ -139,9 +139,9 @@ def main():
                      f"{rec.get('cum_gas_mcf', 0):,} MCF")
             add_box(ax, ay, line1, line2)
 
-        oil_total = sum(r.get("cum_oil_bbl", 0) for r in prod["oil"] if not r.get("no_pdq_data"))
-        gas_total = (sum(r.get("cum_gas_mcf", 0) for r in prod["gas"] if not r.get("no_pdq_data"))
-                     + sum(r.get("cum_gas_mcf", 0) for r in prod["oil"] if not r.get("no_pdq_data")))
+        live = [r for r in prod["oil"] + prod["gas"] if not r.get("no_pdq_data")]
+        oil_total = sum(r.get("cum_oil_bbl", 0) for r in live)
+        gas_total = sum(r.get("cum_gas_mcf", 0) for r in live)
         totals_line = (f"CUM. PRODUCTION REPORTED TO RRC SINCE JAN 1993:  "
                        f"{oil_total:,} BBL OIL  ·  {gas_total:,} MCF GAS")
 
@@ -175,7 +175,7 @@ def main():
         ("Injection / Disposal from Oil", "Injection / Disposal"),
         ("Water Supply", "Water Supply"),
     ]
-    band_h = 300 + (64 if totals_line else 0)
+    band_h = 330 + (64 if totals_line else 0)
     canvas = Image.new("RGBA", (w, h + band_h), (255, 255, 255, 255))
     canvas.alpha_composite(flat, (0, 0))
     d2 = ImageDraw.Draw(canvas)
@@ -208,11 +208,17 @@ def main():
     sw = Image.open(io.BytesIO(base64.b64decode(swatches["Shut-In Gas"]))).convert("RGBA")
     canvas.alpha_composite(sw.resize((44, 44)), (cx, cy))
     d2.text((cx + 58, cy + 6), "Shut-In Gas", font=f_leg, fill=INK)
+    f_cred = ImageFont.truetype(FR, 24)
     d2.text(
-        (60, h + band_h - 46),
-        "Sources: RRC Public GIS Viewer (gis.rrc.texas.gov) well locations; RRC Production Data "
-        "Query, cum. reported production Jan 1993 – present (July 2026). Box positions approximate.",
-        font=ImageFont.truetype(FR, 24), fill=GRAY,
+        (60, h + band_h - 76),
+        "Sources: RRC Public GIS Viewer (gis.rrc.texas.gov) well locations; RRC Production Data",
+        font=f_cred, fill=GRAY,
+    )
+    d2.text(
+        (60, h + band_h - 44),
+        "Query, cum. reported production Jan 1993 – present, retrieved July 2026 (oil incl. "
+        "condensate; gas incl. casinghead). Box positions approximate.",
+        font=f_cred, fill=GRAY,
     )
 
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
