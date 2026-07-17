@@ -7,10 +7,12 @@ Every exhibit is the untouched scan extracted from the original book
 exactly as they appear in the source; only the surrounding template chrome is
 rebranded."""
 import html
+import json
 import os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "build", "index.html")
+PROD_JSON = os.path.join(ROOT, "data", "rrc", "production.json")
 
 A = "../assets"
 EX = f"{A}/optimized"
@@ -29,9 +31,10 @@ TOC = [
     ("13", "Formations"),
     ("19", "Permit"),
     ("24", "Area Wells Map"),
-    ("25", "Proven Production"),
-    ("27", "Financial Projection"),
-    ("28", "Contact Information"),
+    ("25", "Area Production"),
+    ("26", "Proven Production"),
+    ("28", "Financial Projection"),
+    ("29", "Contact Information"),
 ]
 
 # (page, kicker, title, subtitle, exhibit file, bare)
@@ -57,9 +60,9 @@ EXHIBIT_PAGES = [
     (22, "Land",       "Tobin Ownership Map", "C.J. Robinson &middot; 81 Acres", "page20_x101.png", False),
     (23, "Permit",     "RRC Permit Records", "Railroad Commission of Texas Online System", "page21_x105.png", False),
     (24, "Production", "Area Wells Map", "RRC Public GIS Viewer &middot; Active Oil Wells Near the Robinson Lease", "GENERATED:robinson-area-wells.png", False),
-    # 25 = text page, built separately
-    (26, "Reference",  "Geology of Texas", "Bureau of Economic Geology &middot; The University of Texas at Austin", "page23_x114.png", False),
-    (27, "Financial",  "Financial Projection", "Potential Monthly Return on 1% &middot; $65 / $75 / $85 Oil Price Scenarios", "page24_x119.png", False),
+    # 25 = production cards page, 26 = text page, built separately
+    (27, "Reference",  "Geology of Texas", "Bureau of Economic Geology &middot; The University of Texas at Austin", "page23_x114.png", False),
+    (28, "Financial",  "Financial Projection", "Potential Monthly Return on 1% &middot; $65 / $75 / $85 Oil Price Scenarios", "page24_x119.png", False),
 ]
 
 EXEC_SUMMARY_INTRO = (
@@ -222,12 +225,68 @@ def exec_summary_page():
     )
 
 
+def production_page():
+    data = json.load(open(PROD_JSON))
+
+    def fmt(n):
+        return f"{int(round(n)):,}" if isinstance(n, (int, float)) else "&mdash;"
+
+    def card(entry, api5s_label):
+        stats = (
+            '<div class="pc-stats">'
+            f'<div class="pc-stat"><div class="v">{fmt(entry.get("cum_oil_bbl"))}</div>'
+            '<div class="l">Cum Oil, BBL</div></div>'
+            f'<div class="pc-stat"><div class="v">{fmt(entry.get("cum_gas_mcf"))}</div>'
+            '<div class="l">Cum Gas, MCF</div></div>'
+            '</div>'
+        )
+        meta = " &middot; ".join(x for x in [
+            html.escape(entry.get("operator") or ""),
+            html.escape(entry.get("field") or ""),
+            f'Dist. {html.escape(str(entry.get("district") or ""))} &middot; Lease {html.escape(str(entry.get("lease_no") or ""))}',
+            api5s_label,
+        ] if x)
+        return (
+            '<div class="prod-card">'
+            f'<div class="pc-name">{html.escape(entry.get("lease_name") or "")}</div>'
+            f'<div class="pc-meta">{meta}</div>'
+            f'{stats}</div>'
+        )
+
+    cards = ['<div class="prod-sechead">Oil Leases &mdash; Ranked by Cumulative Oil</div>']
+    for e in data["oil"][:6]:
+        apis = ", ".join(f"42-467-{a}" for a in e.get("api5s", [])[:3])
+        cards.append(card(e, f'API {apis}'))
+    if data.get("gas"):
+        cards.append('<div class="prod-sechead">Gas Wells &mdash; Ranked by Cumulative Gas</div>')
+        for e in data["gas"][:4]:
+            apis = ", ".join(f"42-467-{a}" for a in e.get("api5s", [])[:3])
+            cards.append(card(e, f'API {apis}'))
+
+    note = (
+        "Cumulative production as reported to the Railroad Commission of Texas, "
+        f'Production Data Query (webapps.rrc.texas.gov/PDQ), retrieved {html.escape(data["retrieved"])}. '
+        "PDQ coverage begins January 1993; totals reflect production reported from that date. Texas oil "
+        "production is reported per lease (all wells on the lease combined); gas production per gas well ID. "
+        "Wells shown are the active oil and gas wells on the Area Wells Map, page 24."
+    )
+    return (
+        '<section class="page">'
+        f'{chrome()}'
+        f'{titleblock(25, "Production", "Area Production", "RRC Production Data Query &middot; Cumulative Reported Production")}'
+        f'<div class="prod-note">{note}</div>'
+        f'<div class="prod-grid">{"".join(cards)}</div>'
+        f'{footer()}'
+        '</section>'
+    )
+
+
 def text_page():
     paras = "".join(f"<p>{p}</p>" for p in STACKED_PARAGRAPHS)
     return (
         '<section class="page">'
         f'{chrome()}'
-        f'{titleblock(25, "Production", "Multiple Stacked Proven Production", "Van Zandt County &middot; East Texas Salt Structure Province")}'
+        f'{titleblock(26, "Production", "Multiple Stacked Proven Production", "Van Zandt County &middot; East Texas Salt Structure Province")}'
         f'<div class="bodytext">{paras}</div>'
         f'{footer()}'
         '</section>'
@@ -257,8 +316,10 @@ def contact_page():
 def main():
     pages = [cover_page(), toc_page(), exec_summary_page()]
     by_num = {p[0]: p for p in EXHIBIT_PAGES}
-    for num in range(4, 28):
+    for num in range(4, 29):
         if num == 25:
+            pages.append(production_page())
+        elif num == 26:
             pages.append(text_page())
         else:
             n, kicker, title, sub, img, bare = by_num[num]

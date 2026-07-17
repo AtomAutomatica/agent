@@ -248,6 +248,71 @@ h1.title {
   color: var(--ink);
 }
 
+/* ---------- production cards ---------- */
+
+.prod-note {
+  position: absolute;
+  top: 2.02in; left: 0.6in; right: 0.6in;
+  font-size: 8.5pt;
+  color: var(--gray);
+  line-height: 1.5;
+}
+.prod-grid {
+  position: absolute;
+  top: 2.55in; left: 0.6in; right: 0.6in; bottom: 0.80in;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.16in 0.24in;
+  align-content: start;
+}
+.prod-sechead {
+  grid-column: 1 / -1;
+  font-weight: 600;
+  font-size: 8.5pt;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-top: 0.06in;
+}
+.prod-card {
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--red);
+  padding: 0.10in 0.14in 0.11in;
+  background: #fff;
+}
+.prod-card .pc-name {
+  font-weight: 700;
+  font-size: 10.5pt;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+}
+.prod-card .pc-meta {
+  margin-top: 2px;
+  font-size: 7.6pt;
+  color: var(--gray);
+  line-height: 1.45;
+}
+.prod-card .pc-stats {
+  display: flex;
+  gap: 0.35in;
+  margin-top: 0.07in;
+}
+.prod-card .pc-stat .v {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600;
+  font-size: 16pt;
+  color: var(--ink);
+  line-height: 1.05;
+}
+.prod-card .pc-stat .l {
+  font-size: 7pt;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-top: 1px;
+}
+
 /* ---------- text page ---------- */
 
 .bodytext {
