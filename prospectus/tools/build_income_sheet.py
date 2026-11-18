@@ -17,10 +17,7 @@ NRI = 0.0075  # .75% of revenue per 1% unit
 
 OIL_PRICES = [75, 90, 100]
 OIL_MARKET = 90
-OIL_RATES = [250, 500, 750]
-GAS_PRICES = [3.00, 3.50, 7.00]
-GAS_MARKET = 3.00
-GAS_RATES = [1000, 2000]
+OIL_RATES = [250, 500, 750, 1000, 1500]
 
 DISCLAIMER = (
     "Estimated income figures are illustrative calculations at the stated hypothetical production "
@@ -46,11 +43,6 @@ def oil_cell(rate, price):
             f'<div class="sub">payout &asymp; {payout:.1f} mo</div></td>')
 
 
-def gas_cell(rate, price):
-    income = rate * 30 * price * NRI
-    return f'<td class="num"><div class="inc">{money(income)}</div></td>'
-
-
 def price_head(p, market, unit):
     tag = '<span class="mkt">&asymp; market</span>' if p == market else ""
     val = f"${p:,.2f}" if isinstance(p, float) else f"${p:,.0f}"
@@ -61,11 +53,6 @@ oil_rows = "".join(
     f'<tr><td class="rate">{r:,} BOPD</td>'
     + "".join(oil_cell(r, p) for p in OIL_PRICES) + "</tr>"
     for r in OIL_RATES
-)
-gas_rows = "".join(
-    f'<tr><td class="rate">{r:,} MCFPD</td>'
-    + "".join(gas_cell(r, p) for p in GAS_PRICES) + "</tr>"
-    for r in GAS_RATES
 )
 
 html = f"""<!DOCTYPE html><html><head><meta charset="utf-8">
@@ -90,13 +77,13 @@ table.inc {{ width:100%; border-collapse:collapse; }}
 .inc th:first-child {{ text-align:left; }}
 .inc th .mkt {{ display:inline-block; background:#fff; color:var(--red); font-size:5.8pt;
                padding:1px 5px; margin-left:5px; border-radius:2px; letter-spacing:0.08em; }}
-.inc td {{ border:1px solid var(--line); padding:6px 8px; }}
+.inc td {{ border:1px solid var(--line); padding:9px 10px; }}
 .inc td.rate {{ font-weight:700; font-size:9.5pt; }}
 .inc td.num {{ text-align:right; }}
 .inc .inc {{ font-family:'Barlow Condensed'; font-weight:600; font-size:13.5pt; color:var(--ink); }}
 .inc .sub {{ font-size:6.6pt; color:var(--gray); margin-top:1px; }}
 .inc tr:nth-child(even) td {{ background:#fafafa; }}
-.mktline {{ position:absolute; left:0.6in; right:0.6in; top:7.95in; font-size:7.4pt;
+.mktline {{ position:absolute; left:0.6in; right:0.6in; top:7.60in; font-size:7.4pt;
            color:var(--gray); line-height:1.5; }}
 .onepager-disclaimer {{ position:absolute; bottom:0.80in; left:0.85in; right:0.85in;
   font-size:6.8pt; font-style:italic; line-height:1.5; color:var(--gray); text-align:justify; }}
@@ -121,28 +108,19 @@ table.inc {{ width:100%; border-collapse:collapse; }}
       <div class="l">Net Revenue Interest per Unit</div></div>
   </div>
 
-  <div class="sect" style="top:3.05in;">
+  <div class="sect" style="top:3.15in;">
     <h2>Oil Production &mdash; Estimated Income per Month</h2>
     <table class="inc">
       <tr><th>Oil Rate</th>{"".join(price_head(p, OIL_MARKET, "Oil") for p in OIL_PRICES)}</tr>
       {oil_rows}
     </table>
     <div class="formula">Formula: BOPD &times; 30 days &times; oil price &times; .75 NRI &divide; 100.
-    &ldquo;Payout&rdquo; = months of estimated income to recover the $98,000.00 unit price (oil income alone).</div>
-  </div>
-
-  <div class="sect" style="top:5.62in;">
-    <h2>Natural Gas Production &mdash; Estimated Income per Month</h2>
-    <table class="inc">
-      <tr><th>Gas Rate</th>{"".join(price_head(p, GAS_MARKET, "Gas") for p in GAS_PRICES)}</tr>
-      {gas_rows}
-    </table>
-    <div class="formula">Formula: MCFPD &times; 30 days &times; gas price &times; .75 NRI &divide; 100.</div>
+    &ldquo;Payout&rdquo; = months of estimated income to recover the $98,000.00 unit price.</div>
   </div>
 
   <div class="mktline"><b>Market reference (November 2026):</b> WTI crude spot &asymp; $90.40/BBL
-  (EIA, Nov 9, 2026; recent settlements as high as &asymp; $96); Henry Hub natural gas front-month
-  &asymp; $2.90/MMBtu (CME). Scenario prices above are illustrative and bracket the current market.</div>
+  (EIA, Nov 9, 2026; recent settlements as high as &asymp; $96). Scenario prices above are
+  illustrative and bracket the current market.</div>
 
   <div class="onepager-disclaimer">{DISCLAIMER}</div>
 
