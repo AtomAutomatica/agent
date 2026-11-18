@@ -1,0 +1,343 @@
+{
+ "retrieved": "July 17, 2026",
+ "range_queried": "Jan 1993 - Jul 2026",
+ "oil": [
+  {
+   "lease_name": "FRUITVALE WATERFLOOD UNIT",
+   "lease_no": "04291",
+   "district": "05",
+   "operator": "JAMEX, INC.",
+   "field": "FRUITVALE",
+   "api5s": [
+    "31143",
+    "01026",
+    "31114",
+    "31148",
+    "31139",
+    "31128",
+    "31120",
+    "31117",
+    "31124"
+   ],
+   "well_nos": [
+    "701",
+    "501",
+    "801",
+    "1101",
+    "601",
+    "101",
+    "1201",
+    "901",
+    "1001"
+   ],
+   "source": "RRC PDQ specific lease query, district 05, oil lease 04291",
+   "period": "Feb 2017 - Apr 2026",
+   "months_reported": 111,
+   "cum_oil_bbl": 315261,
+   "cum_gas_mcf": 0,
+   "gas_is_casinghead": true
+  },
+  {
+   "lease_name": "GROVES, C. A.",
+   "lease_no": "00811",
+   "district": "05",
+   "operator": "JAMEX, INC.",
+   "field": "FRUITVALE",
+   "api5s": [
+    "01025"
+   ],
+   "well_nos": [
+    "2"
+   ],
+   "source": "RRC PDQ specific lease query, district 05, oil lease 00811",
+   "period": "Jan 1993 - Feb 2017",
+   "months_reported": 290,
+   "cum_oil_bbl": 147284,
+   "cum_gas_mcf": 21,
+   "gas_is_casinghead": true
+  },
+  {
+   "lease_name": "BRUCE FARMS",
+   "lease_no": "01934",
+   "district": "05",
+   "operator": "ATLANTIS OIL COMPANY, INC.",
+   "field": "MYRTLE SPRINGS",
+   "api5s": [
+    "30086"
+   ],
+   "well_nos": [
+    "2"
+   ],
+   "source": "RRC PDQ specific lease query, district 05, oil lease 01934",
+   "period": "Jan 1993 - Apr 2026",
+   "months_reported": 400,
+   "cum_oil_bbl": 50005,
+   "cum_gas_mcf": 159,
+   "gas_is_casinghead": true
+  },
+  {
+   "lease_name": "BRITT",
+   "lease_no": "04135",
+   "district": "05",
+   "operator": "JAMEX, INC.",
+   "field": "FRUITVALE",
+   "api5s": [
+    "31162"
+   ],
+   "well_nos": [
+    "1"
+   ],
+   "source": "RRC PDQ specific lease query, district 05, oil lease 04135",
+   "period": "Mar 2015 - Apr 2026",
+   "months_reported": 134,
+   "cum_oil_bbl": 32986,
+   "cum_gas_mcf": 0,
+   "gas_is_casinghead": true
+  },
+  {
+   "lease_name": "HEIDLE",
+   "lease_no": "04023",
+   "district": "05",
+   "operator": "JAMEX, INC.",
+   "field": "FRUITVALE",
+   "api5s": [
+    "31157"
+   ],
+   "well_nos": [
+    "1"
+   ],
+   "source": "RRC PDQ specific lease query, district 05, oil lease 04023",
+   "period": "Aug 2013 - Apr 2026",
+   "months_reported": 153,
+   "cum_oil_bbl": 26904,
+   "cum_gas_mcf": 0,
+   "gas_is_casinghead": true
+  },
+  {
+   "lease_name": "VIEN LAM",
+   "lease_no": "04022",
+   "district": "05",
+   "operator": "JAMEX, INC.",
+   "field": "FRUITVALE",
+   "api5s": [
+    "31152"
+   ],
+   "well_nos": [
+    "1"
+   ],
+   "source": "RRC PDQ specific lease query, district 05, oil lease 04022",
+   "period": "Aug 2013 - Jul 2024",
+   "months_reported": 132,
+   "cum_oil_bbl": 11232,
+   "cum_gas_mcf": 0,
+   "gas_is_casinghead": true
+  },
+  {
+   "lease_name": "WEST, W. E.",
+   "lease_no": "01782",
+   "district": "05",
+   "operator": "WEST, W. ERNEST",
+   "field": "FRUITVALE",
+   "api5s": [
+    "01024"
+   ],
+   "well_nos": [
+    "1B"
+   ],
+   "source": "RRC PDQ specific lease query, district 05, oil lease 01782",
+   "no_pdq_data": true
+  }
+ ],
+ "gas": [
+  {
+   "lease_name": "FOSTER, B. G.",
+   "lease_no": "109121",
+   "district": "05",
+   "operator": "TACTICAL OPERATING COMPANY, LLC",
+   "field": "FRUITVALE, S. (SMACKOVER)",
+   "api5s": [
+    "30560"
+   ],
+   "well_nos": [
+    "1"
+   ],
+   "source": "RRC PDQ specific lease query, district 05, gas well ID 109121",
+   "period": "Jan 1993 - Sep 2024",
+   "months_reported": 370,
+   "cum_gas_mcf": 36286599,
+   "cum_oil_bbl": 13,
+   "oil_is_condensate": true
+  },
+  {
+   "lease_name": "BRUCE FARMS GAS UNIT",
+   "lease_no": "052496",
+   "district": "05",
+   "operator": "TACTICAL OPERATING COMPANY, LLC",
+   "field": "MYRTLE SPRINGS (SMACKOVER 13250)",
+   "api5s": [
+    "30061"
+   ],
+   "well_nos": [
+    "1"
+   ],
+   "source": "RRC PDQ specific lease query, district 05, gas well ID 052496",
+   "period": "Jan 1993 - Oct 2024",
+   "months_reported": 343,
+   "cum_gas_mcf": 6234731,
+   "cum_oil_bbl": 0,
+   "oil_is_condensate": true
+  },
+  {
+   "lease_name": "WEST, W. E. GAS UNIT",
+   "lease_no": "038741",
+   "district": "05",
+   "operator": "TACTICAL OPERATING COMPANY, LLC",
+   "field": "FRUITVALE (SMACKOVER)",
+   "api5s": [
+    "01022"
+   ],
+   "well_nos": [
+    "1"
+   ],
+   "source": "RRC PDQ specific lease query, district 05, gas well ID 038741",
+   "period": "Jan 1993 - Jan 2017",
+   "months_reported": 289,
+   "cum_gas_mcf": 5826662,
+   "cum_oil_bbl": 891,
+   "oil_is_condensate": true
+  },
+  {
+   "lease_name": "COX, AVA ETAL",
+   "lease_no": "118039",
+   "district": "05",
+   "operator": "TACTICAL OPERATING COMPANY, LLC",
+   "field": "FRUITVALE, S. (SMACKOVER)",
+   "api5s": [
+    "30615"
+   ],
+   "well_nos": [
+    "1"
+   ],
+   "source": "RRC PDQ specific lease query, district 05, gas well ID 118039",
+   "period": "Jan 1993 - Oct 2018",
+   "months_reported": 309,
+   "cum_gas_mcf": 4798300,
+   "cum_oil_bbl": 0,
+   "oil_is_condensate": true
+  },
+  {
+   "lease_name": "REZNICEK",
+   "lease_no": "284881",
+   "district": "05",
+   "operator": "DIXIELAND ENERGY LLC",
+   "field": "EDGEWOOD (COTTON VALLEY)",
+   "api5s": [
+    "31175"
+   ],
+   "well_nos": [
+    "1"
+   ],
+   "source": "RRC PDQ specific lease query, district 05, gas well ID 284881",
+   "period": "May 2018 - Apr 2026",
+   "months_reported": 96,
+   "cum_gas_mcf": 3074613,
+   "cum_oil_bbl": 4645,
+   "oil_is_condensate": true
+  },
+  {
+   "lease_name": "PREWITT GAS UNIT",
+   "lease_no": "059500",
+   "district": "05",
+   "operator": "DYERSDALE PRODUCTION CO, INC.",
+   "field": "FRUITVALE (SMACKOVER)",
+   "api5s": [
+    "30085"
+   ],
+   "well_nos": [
+    "1"
+   ],
+   "source": "RRC PDQ specific lease query, district 05, gas well ID 059500",
+   "period": "Jan 1993 - Jan 2017",
+   "months_reported": 289,
+   "cum_gas_mcf": 2991330,
+   "cum_oil_bbl": 842,
+   "oil_is_condensate": true
+  },
+  {
+   "lease_name": "HUMPHRIES",
+   "lease_no": "285938",
+   "district": "05",
+   "operator": "JAMEX, INC.",
+   "field": "EDGEWOOD (COTTON VALLEY)",
+   "api5s": [
+    "31177"
+   ],
+   "well_nos": [
+    "1"
+   ],
+   "source": "RRC PDQ specific lease query, district 05, gas well ID 285938",
+   "period": "Oct 2018 - Apr 2026",
+   "months_reported": 91,
+   "cum_gas_mcf": 1431152,
+   "cum_oil_bbl": 2324,
+   "oil_is_condensate": true
+  },
+  {
+   "lease_name": "PIERCE, C. J.",
+   "lease_no": "268050",
+   "district": "05",
+   "operator": "TACTICAL OPERATING COMPANY, LLC",
+   "field": "EDGEWOOD (COTTON VALLEY)",
+   "api5s": [
+    "31130"
+   ],
+   "well_nos": [
+    "1"
+   ],
+   "source": "RRC PDQ specific lease query, district 05, gas well ID 268050",
+   "period": "Jul 2011 - Jun 2018",
+   "months_reported": 84,
+   "cum_gas_mcf": 1076715,
+   "cum_oil_bbl": 1808,
+   "oil_is_condensate": true
+  },
+  {
+   "lease_name": "BACHTEL",
+   "lease_no": "282192",
+   "district": "05",
+   "operator": "DIXIELAND ENERGY LLC",
+   "field": "EDGEWOOD (COTTON VALLEY)",
+   "api5s": [
+    "31169"
+   ],
+   "well_nos": [
+    "1"
+   ],
+   "source": "RRC PDQ specific lease query, district 05, gas well ID 282192",
+   "period": "Dec 2016 - Apr 2026",
+   "months_reported": 113,
+   "cum_gas_mcf": 1026909,
+   "cum_oil_bbl": 920,
+   "oil_is_condensate": true
+  },
+  {
+   "lease_name": "BOMAR",
+   "lease_no": "289459",
+   "district": "05",
+   "operator": "DIXIELAND ENERGY LLC",
+   "field": "EDGEWOOD (COTTON VALLEY)",
+   "api5s": [
+    "31179"
+   ],
+   "well_nos": [
+    "1"
+   ],
+   "source": "RRC PDQ specific lease query, district 05, gas well ID 289459",
+   "period": "Feb 2020 - Apr 2026",
+   "months_reported": 75,
+   "cum_gas_mcf": 701201,
+   "cum_oil_bbl": 571,
+   "oil_is_condensate": true
+  }
+ ]
+}

@@ -1,0 +1,362 @@
+#!/usr/bin/env python3
+"""Generate build/index.html — the Ferox Oil 'Robinson #1' prospectus.
+
+Every exhibit is the untouched scan extracted from the original book
+(assets/extracted/robinson). Official/third-party documents inside those scans
+(RRC Form W-1, permit plat, surveyor and geologist documents) are reproduced
+exactly as they appear in the source; only the surrounding template chrome is
+rebranded."""
+import html
+import json
+import os
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+OUT = os.path.join(ROOT, "build", "index.html")
+PROD_JSON = os.path.join(ROOT, "data", "rrc", "production.json")
+
+A = "../assets"
+EX = f"{A}/optimized"
+LOGO = f"{A}/brand/ferox-logo.png"
+PHOTO = f"{A}/optimized/industrial-photo.jpg"
+
+WEBSITE = "www.feroxoil.com"
+PHONE = "P: (214) 257 - 0319"
+
+TOC = [
+    ("03", "Executive Summary"),
+    ("04", "Geologist's Summary"),
+    ("05", "Site Access Map"),
+    ("06", "Producing Zones"),
+    ("07", "Structure"),
+    ("13", "Formations"),
+    ("19", "Permit"),
+    ("24", "Area Wells Map"),
+    ("25", "Area Production"),
+    ("26", "Proven Production"),
+    ("28", "Financial Projection"),
+    ("29", "Contact Information"),
+]
+
+# (page, kicker, title, subtitle, exhibit file, bare)
+EXHIBIT_PAGES = [
+    (4,  "Overview",   "Geologist&rsquo;s Summary", "Consulting Geologist &amp; Drilling Superintendent Report", "page02_x3.png", False),
+    (5,  "Location",   "Site Access Map", "C.J. Robinson Well #1 &middot; Van Zandt County, Texas", "page03_x10.png", False),
+    (6,  "Geology",    "Producing Zones", "Principal Oil-Producing Stratigraphic Units &middot; Gulf Coast &amp; East Texas Basins", "page04_x15.png", False),
+    (7,  "Geology",    "Structure", "East Texas Salt Structure Province &middot; Quitman Field Cross Section", "page05_x19.png", False),
+    (8,  "Geology",    "Quitman Field", "Neighboring Field, Wood County &mdash; Complex Fault System", "page06_x24.png", False),
+    (9,  "Geology",    "East Texas Basin", "Isometric Block Diagram &middot; Louann Salt Configuration", "page07_x30.png", False),
+    (10, "Geology",    "Structural Elements", "Major Structural Elements of the East Texas Basin", "page08_x34.png", False),
+    (11, "Geology",    "Electrical Curves", "Electrical Curves &amp; Lithology", "page09_x40.png", False),
+    (12, "Geology",    "Stratigraphic Cross Section", "Kaufman &amp; Van Zandt Counties", "page10_x46.png", False),
+    (13, "Formations", "Austin Chalk 3,800&prime;", None, "page11_x50.png", False),
+    (14, "Formations", "Paluxy 7,700&prime;", None, "page12_x56.png", False),
+    (15, "Formations", "Smackover 15,000&prime;", None, "page13_x60.png", False),
+    (16, "Formations", "Myrtle Springs Field", "Van Zandt County, Texas", "page14_x64.png", False),
+    (17, "Formations", "Travis Peak Completion", "Fruitvale Field, Van Zandt County, Texas", "page15_x69.png", False),
+    (18, "Formations", "Myrtle Springs Field &mdash; Type Section", "Van Zandt County, Texas", "page16_x74.png", False),
+    (19, "Permit",     "Permit", "Railroad Commission of Texas &middot; Form W-1 &middot; Approved", "page17_x81.png", False),
+    (20, "Permit",     "RRC Map &mdash; Well Site", "Van Zandt County, Texas", "page18_x92.png", False),
+    (21, "Permit",     "Permit Plat", "Ephraim Vansickle Survey, Abstract 885, Van Zandt County, Texas", "page19_x97.png", False),
+    (22, "Land",       "Tobin Ownership Map", "C.J. Robinson &middot; 81 Acres", "page20_x101.png", False),
+    (23, "Permit",     "RRC Permit Records", "Railroad Commission of Texas Online System", "page21_x105.png", False),
+    (24, "Production", "Area Wells Map", "RRC Public GIS Viewer &middot; Active Oil Wells Near the Robinson Lease", "GENERATED:robinson-area-wells.png", False),
+    # 25 = production cards page, 26 = text page, built separately
+    (27, "Reference",  "Geology of Texas", "Bureau of Economic Geology &middot; The University of Texas at Austin", "page23_x114.png", False),
+    (28, "Financial",  "Financial Projection", "Potential Monthly Return on 1% &middot; $65 / $75 / $85 Oil Price Scenarios", "page24_x119.png", False),
+]
+
+EXEC_SUMMARY_INTRO = (
+    "Ferox Oil, LLC plans to drill a vertical well to a total depth of "
+    "8,900&nbsp;+/- ft. in the Fruitvale Field area of Van Zandt County, "
+    "Texas. The Cotton Valley and the Travis Peak are the primary targets, "
+    "with production potential from as many as seventeen (17) proven oil and "
+    "gas bearing formations in the area."
+)
+
+EXEC_SUMMARY_ROWS = [
+    ("Location", "Van Zandt County, TX"),
+    ("Working Interest per Unit", "1.0%"),
+    ("Net Revenue Interest per Unit", ".75%"),
+    ("Total Price per Unit", "$45,000.00 &nbsp;&middot;&nbsp; Drilling, Testing and Completion"),
+]
+
+STACKED_PARAGRAPHS = [
+    "The East Texas salt structure province covers over eleven (11) counties, "
+    "which includes Van Zandt County. There are approximately seventeen (17) "
+    "oil and gas bearing formations in Van Zandt County, which include: "
+    "Nacatoch, Taylor, Pecan Gap, Austin, Eagle Ford, Woodbine, Buda, Grayson, "
+    "Georgetown, Fredericksburg, Paluxy, Glen Rose, Rodessa, Pettet, Travis "
+    "Peak, Cotton Valley and Smackover.",
+
+    "Any of these formations could be a potential trap for accumulating "
+    "migrating oil and gas. As illustrated in the nearby Quitman Field, where "
+    "close drilling occurred, main and secondary faults can be accurately "
+    "defined. In this proposed Robinson #1 well, the lack of well control "
+    "(number of wells) prevents such close control or mapping of these faults "
+    "and structures.",
+
+    "There are four (4) fields surrounding the Robinson #1: the Myrtle Springs "
+    "Field, Edgewood Field, Fruitvale East Field and the Fruitvale Field. The "
+    "Robinson #1 is considered an extension of the Fruitvale Field. Faults "
+    "that are created by the upward migration of the Louann salt bed have cut "
+    "through some, if not all, of the formations above this salt and have "
+    "created these four (4) surrounding fields as oil and gas became trapped "
+    "and accumulated. All of the salt domes in the East Texas salt structure "
+    "province have created dozens of fields throughout the province and these "
+    "domes push upward in their migration toward the surface. The probability "
+    "of undiscovered trapped oil and gas within any of these seventeen (17) "
+    "plus formations is high due to this &ldquo;under drilling&rdquo; of the "
+    "Robinson lease.",
+
+    "This area is termed a &ldquo;stacked&rdquo; field with potential "
+    "production in many, if not all, of the shallower formations. No one (1) "
+    "formation makes up these four (4) fields; however, the Smackover "
+    "formation is the formation that is sustained, and high production is the "
+    "common factor throughout.",
+]
+
+DISCLAIMER = (
+    "This document constitutes part of an investor kit and should only be read "
+    "in conjunction with the subscription agreement and memorandum. This "
+    "document is for your private information, and we are not soliciting any "
+    "action based upon it. This document is not to be construed as an offer to "
+    "sell or as a solicitation of an offer to buy any security in any "
+    "jurisdiction. Please review with care the subscription agreement enclosed "
+    "within this document. No person is authorized to give any information or "
+    "make any representation other than those contained or incorporated by "
+    "reference in the subscription agreement and memorandum. If given or made, "
+    "any such information or representation must not be relied upon as having "
+    "been authorized by Ferox Oil, LLC."
+)
+
+
+def chrome(folio=None):
+    parts = [
+        '<div class="hdr"><span class="well">ROBINSON #1</span>'
+        f'<img class="logo" src="{LOGO}" alt="Ferox Oil"></div>',
+        '<div class="hdr-rule"></div>',
+    ]
+    return "".join(parts)
+
+
+def footer():
+    return (
+        '<div class="ftr-rule"></div>'
+        f'<div class="ftr"><span>{WEBSITE}</span>'
+        '<span class="co">FEROX OIL, LLC</span>'
+        f'<span>{PHONE}</span></div>'
+    )
+
+
+def titleblock(folio, kicker, title, subtitle):
+    sub = f'<div class="subtitle">{subtitle}</div>' if subtitle else ""
+    return (
+        '<div class="titleblock">'
+        f'<div class="krow"><span class="kicker">{kicker}</span>'
+        f'<span class="folio">{folio:02d}</span></div>'
+        f'<h1 class="title">{title}</h1>'
+        '<div class="title-bar"></div>'
+        f'{sub}</div>'
+    )
+
+
+def cover_page():
+    return (
+        '<section class="page cover">'
+        f'<img class="cover-logo" src="{LOGO}" alt="Ferox Oil">'
+        '<div class="cover-well">Robinson #1</div>'
+        '<div class="cover-county">Van Zandt County, Texas</div>'
+        f'<div class="cover-photo"><img src="{PHOTO}" alt=""></div>'
+        f'{footer()}'
+        '</section>'
+    )
+
+
+def toc_page():
+    rows = "".join(
+        f'<div class="toc-row"><span class="toc-num">{n}</span>'
+        f'<span class="toc-label">{label}</span></div>'
+        for n, label in TOC
+    )
+    return (
+        '<section class="page">'
+        f'{chrome()}'
+        f'{titleblock(2, "Contents", "Table of Contents", None)}'
+        '<div class="tocwrap">'
+        f'<div class="toc-photo"><img src="{PHOTO}" alt=""></div>'
+        f'<div class="toc-list">{rows}</div>'
+        '</div>'
+        f'{footer()}'
+        '</section>'
+    )
+
+
+def exhibit_page(num, kicker, title, subtitle, img, bare):
+    cls = "exhibit bare" if bare else "exhibit"
+    if img.startswith("GENERATED:"):
+        src = f"{A}/generated/{img.split(':', 1)[1]}"
+    else:
+        src = f"{EX}/{img.replace('.png', '.jpg')}"
+    return (
+        '<section class="page">'
+        f'{chrome()}'
+        f'{titleblock(num, kicker, title, subtitle)}'
+        f'<div class="content"><img class="{cls}" src="{src}" alt=""></div>'
+        f'{footer()}'
+        '</section>'
+    )
+
+
+def exec_summary_page():
+    rows = "".join(
+        f'<div class="exec-row"><div class="exec-label">{label}</div>'
+        f'<div class="exec-value">{value}</div></div>'
+        for label, value in EXEC_SUMMARY_ROWS
+    )
+    return (
+        '<section class="page">'
+        f'{chrome()}'
+        f'{titleblock(3, "Overview", "Executive Summary", "Robinson #1 &middot; Van Zandt County, Texas")}'
+        f'<div class="exec-intro">{EXEC_SUMMARY_INTRO}</div>'
+        f'<div class="exec-rows">{rows}</div>'
+        f'<div class="disclaimer">{DISCLAIMER}</div>'
+        f'{footer()}'
+        '</section>'
+    )
+
+
+def production_page(folio=25, map_ref="the Area Wells Map, page 24"):
+    data = json.load(open(PROD_JSON))
+
+    def fmt(n):
+        return f"{int(round(n)):,}" if isinstance(n, (int, float)) else "&mdash;"
+
+    def row(e, kind):
+        wells = ", ".join(e.get("well_nos", []))
+        apis = ", ".join(e.get("api5s", []))
+        if e.get("no_pdq_data"):
+            o = g = "&mdash;"
+            period = "no production reported since Jan 1993"
+        else:
+            o, g = fmt(e.get("cum_oil_bbl")), fmt(e.get("cum_gas_mcf"))
+            period = e.get("period", "")
+        return (
+            "<tr>"
+            f'<td class="l">{html.escape(e.get("lease_name") or "")}</td>'
+            f'<td>{html.escape(wells)}</td>'
+            f'<td>{html.escape(apis)}</td>'
+            f'<td class="l">{html.escape(e.get("field") or "")}</td>'
+            f'<td class="l">{html.escape(e.get("operator") or "")}</td>'
+            f'<td class="n">{o}</td>'
+            f'<td class="n">{g}</td>'
+            f'<td>{html.escape(period)}</td>'
+            "</tr>"
+        )
+
+    oil = data["oil"]
+    gas = data["gas"]
+    live = [e for e in oil + gas if not e.get("no_pdq_data")]
+    oil_total = sum(e.get("cum_oil_bbl", 0) for e in live)
+    gas_total = sum(e.get("cum_gas_mcf", 0) for e in live)
+
+    head = ('<tr><th>Lease / Unit</th><th>Well No(s).</th><th>API5 No(s).</th><th>Field</th>'
+            '<th>Operator</th><th>Cum Oil (BBL)</th><th>Cum Gas (MCF)</th><th>Reported Period</th></tr>')
+    sec_oil = f'<tr class="sec"><td colspan="8">OIL LEASES &mdash; RANKED BY CUMULATIVE OIL</td></tr>'
+    sec_gas = f'<tr class="sec"><td colspan="8">GAS WELLS &mdash; RANKED BY CUMULATIVE GAS</td></tr>'
+    tot = (f'<tr class="tot"><td colspan="5">AREA TOTAL &mdash; REPORTED TO RRC SINCE JAN 1993 '
+           f'(OIL INCL. CONDENSATE; GAS INCL. CASINGHEAD)</td>'
+           f'<td class="n">{fmt(oil_total)}</td><td class="n">{fmt(gas_total)}</td><td></td></tr>')
+    table = ('<table class="prod-table">' + head + sec_oil
+             + "".join(row(e, "oil") for e in oil) + sec_gas
+             + "".join(row(e, "gas") for e in gas) + tot + "</table>")
+
+    note = (
+        "As reported to the Railroad Commission of Texas &mdash; Production Data Query "
+        f'(webapps.rrc.texas.gov/PDQ), retrieved {html.escape(data["retrieved"])}; coverage begins Jan '
+        "1993. Oil is reported per lease (wells combined; gas figure is casinghead gas); gas is "
+        f"reported per gas well ID (oil figure is condensate). Wells are those shown on {map_ref}."
+    )
+    return (
+        '<section class="page">'
+        f'{chrome()}'
+        f'{titleblock(folio, "Production", "Area Production", "RRC Production Data Query &middot; Cumulative Reported Production")}'
+        f'<div class="prod-note">{note}</div>'
+        f'<div class="prod-tablewrap">{table}</div>'
+        f'{footer()}'
+        '</section>'
+    )
+
+
+def text_page():
+    paras = "".join(f"<p>{p}</p>" for p in STACKED_PARAGRAPHS)
+    return (
+        '<section class="page">'
+        f'{chrome()}'
+        f'{titleblock(26, "Production", "Multiple Stacked Proven Production", "Van Zandt County &middot; East Texas Salt Structure Province")}'
+        f'<div class="bodytext">{paras}</div>'
+        f'{footer()}'
+        '</section>'
+    )
+
+
+def contact_page():
+    return (
+        '<section class="page">'
+        f'{chrome()}'
+        f'<img class="contact-logo" src="{LOGO}" alt="Ferox Oil">'
+        '<div class="contact-title">Contact Information</div>'
+        '<div class="contact-bar"></div>'
+        '<div class="contact-block">'
+        '<div class="co-name">FEROX OIL, LLC</div>'
+        '1910 Pacific Ave., Suite 5015<br>'
+        'Dallas, TX 75201<br>'
+        'P: (214) 257 - 0319<br>'
+        '<a href="https://www.feroxoil.com">www.feroxoil.com</a>'
+        '</div>'
+        f'<div class="disclaimer">{DISCLAIMER}</div>'
+        f'{footer()}'
+        '</section>'
+    )
+
+
+def main():
+    pages = [cover_page(), toc_page(), exec_summary_page()]
+    by_num = {p[0]: p for p in EXHIBIT_PAGES}
+    for num in range(4, 29):
+        if num == 25:
+            pages.append(production_page())
+        elif num == 26:
+            pages.append(text_page())
+        else:
+            n, kicker, title, sub, img, bare = by_num[num]
+            pages.append(exhibit_page(n, kicker.upper(), title, sub, img, bare))
+    pages.append(contact_page())
+
+    def wrap(body, title):
+        return (
+            "<!DOCTYPE html><html><head><meta charset='utf-8'>"
+            f"<title>{title}</title>"
+            "<link rel='stylesheet' href='../assets/fonts/fonts.css'>"
+            "<link rel='stylesheet' href='style.css'>"
+            "</head><body>" + body + "</body></html>"
+        )
+
+    with open(OUT, "w") as fh:
+        fh.write(wrap("".join(pages), "Ferox Oil — Robinson #1"))
+    print(f"wrote {OUT} ({len(pages)} pages)")
+
+    # standalone two-pager: area wells map + production table
+    standalone = [
+        exhibit_page(1, "PRODUCTION", "Area Wells Map",
+                     "RRC Public GIS Viewer &middot; Active Oil Wells Near the Robinson Lease",
+                     "GENERATED:robinson-area-wells.png", False),
+        production_page(folio=2, map_ref="the Area Wells Map, page 1"),
+    ]
+    sa_out = os.path.join(ROOT, "build", "standalone.html")
+    with open(sa_out, "w") as fh:
+        fh.write(wrap("".join(standalone), "Ferox Oil — Robinson #1 Area Wells & Production"))
+    print(f"wrote {sa_out} (2 pages)")
+
+
+if __name__ == "__main__":
+    main()

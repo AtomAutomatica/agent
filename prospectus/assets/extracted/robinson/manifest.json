@@ -1,0 +1,590 @@
+[
+ {
+  "page": 1,
+  "xref": 725,
+  "file": "page01_x725.png",
+  "px_w": 1372,
+  "px_h": 915,
+  "has_alpha": false,
+  "rects_pt": [
+   [
+    -234.38400268554688,
+    182.00469970703125,
+    538.115966796875,
+    696.5046997070312
+   ]
+  ],
+  "page_size_pt": [
+   612.0,
+   792.0
+  ]
+ },
+ {
+  "page": 1,
+  "text": "02\n04\n05\n11\n18\n26\n27\n29\nSummary\nProducing Zones\nStructure\nFormations\nPermit\nFinancial Projection\nPrior Activities\nContact Information\nTABLE OF\nCONTENTS"
+ },
+ {
+  "page": 2,
+  "xref": 3,
+  "file": "page02_x3.png",
+  "px_w": 816,
+  "px_h": 1056,
+  "has_alpha": false,
+  "rects_pt": [
+   [
+    26.72250747680664,
+    69.28045654296875,
+    538.0946044921875,
+    730.6151123046875
+   ]
+  ],
+  "page_size_pt": [
+   612.0,
+   792.0
+  ]
+ },
+ {
+  "page": 2,
+  "text": "ROBINSON #1\n//\nBLACK GOLD INDUSTRIES\n0 2\nSUMMARY"
+ },
+ {
+  "page": 3,
+  "xref": 10,
+  "file": "page03_x10.png",
+  "px_w": 816,
+  "px_h": 1056,
+  "has_alpha": false,
+  "rects_pt": [
+   [
+    69.385498046875,
+    108.7724609375,
+    529.885498046875,
+    705.0225219726562
+   ]
+  ],
+  "page_size_pt": [
+   612.0,
+   792.0
+  ]
+ },
+ {
+  "page": 3,
+  "text": "ROBINSON #1\n//\nBLACK GOLD INDUSTRIES\n0 3"
+ },
+ {
+  "page": 4,
+  "xref": 15,
+  "file": "page04_x15.png",
+  "px_w": 816,
+  "px_h": 1056,
+  "has_alpha": false,
+  "rects_pt": [
+   [
+    31.330501556396484,
+    104.55902099609375,
+    560.0805053710938,
+    788.5590209960938
+   ]
+  ],
+  "page_size_pt": [
+   612.0,
+   792.0
+  ]
+ },
+ {
+  "page": 4,
+  "text": "ROBINSON #1\n//\nBLACK GOLD INDUSTRIES\n0 4\nPRODUCING ZONES"
+ },
+ {
+  "page": 5,
+  "xref": 19,
+  "file": "page05_x19.png",
+  "px_w": 816,
+  "px_h": 1056,
+  "has_alpha": false,
+  "rects_pt": [
+   [
+    51.05025100708008,
+    129.26171875,
+    541.1014404296875,
+    763.18115234375
+   ]
+  ],
+  "page_size_pt": [
+   612.0,
+   792.0
+  ]
+ },
+ {
+  "page": 5,
+  "text": "ROBINSON #1\n//\nBLACK GOLD INDUSTRIES\n0 5\nSTRUCTURE"
+ },
+ {
+  "page": 6,
+  "xref": 24,
+  "file": "page06_x24.png",
+  "px_w": 816,
+  "px_h": 1056,
+  "has_alpha": false,
+  "rects_pt": [
+   [
+    18.9794921875,
+    106.95751953125,
+    529.3865356445312,
+    768.7627563476562
+   ]
+  ],
+  "page_size_pt": [
+   612.0,
+   792.0
+  ]
+ },
+ {
+  "page": 6,
+  "text": "ROBINSON #1\n//\nBLACK GOLD INDUSTRIES\n0 6\nQUITMAN FIELD"
+ },
+ {
+  "page": 7,
+  "xref": 30,
+  "file": "page07_x30.png",
+  "px_w": 816,
+  "px_h": 1056,
+  "has_alpha": false,
+  "rects_pt": [
+   [
+    55.54349899291992,
+    148.31170654296875,
+    555.0435180664062,
+    794.8117065429688
+   ]
+  ],
+  "page_size_pt": [
+   612.0,
+   792.0
+  ]
+ },
+ {
+  "page": 7,
+  "text": "ROBINSON #1\n//\nBLACK GOLD INDUSTRIES\n0 7\nEAST TEXAS BASIN"
+ },
+ {
+  "page": 8,
+  "xref": 34,
+  "file": "page08_x34.png",
+  "px_w": 918,
+  "px_h": 1188,
+  "has_alpha": false,
+  "rects_pt": [
+   [
+    0.7290000915527344,
+    149.82452392578125,
+    562.7485961914062,
+    877.4525756835938
+   ]
+  ],
+  "page_size_pt": [
+   612.0,
+   792.0
+  ]
+ },
+ {
+  "page": 8,
+  "text": "ROBINSON #1\n//\nBLACK GOLD INDUSTRIES\n STRUCTURAL ELEMENTS\n0 8"
+ },
+ {
+  "page": 9,
+  "xref": 40,
+  "file": "page09_x40.png",
+  "px_w": 1020,
+  "px_h": 1320,
+  "has_alpha": false,
+  "rects_pt": [
+   [
+    82.02313232421875,
+    74.04019165039062,
+    732.206787109375,
+    576.4888916015625
+   ],
+   [
+    -140.887451171875,
+    259.0627746582031,
+    603.1124877929688,
+    834.3128662109375
+   ],
+   [
+    104.7850341796875,
+    71.82376098632812,
+    675.4530029296875,
+    512.90576171875
+   ]
+  ],
+  "page_size_pt": [
+   612.0,
+   792.0
+  ]
+ },
+ {
+  "page": 9,
+  "text": "ROBINSON #1\n//\nBLACK GOLD INDUSTRIES \n0 9\nELECTRICAL CURVES"
+ },
+ {
+  "page": 10,
+  "xref": 46,
+  "file": "page10_x46.png",
+  "px_w": 816,
+  "px_h": 1056,
+  "has_alpha": false,
+  "rects_pt": [
+   [
+    51.76200866699219,
+    118.23822021484375,
+    537.0120239257812,
+    745.9882202148438
+   ]
+  ],
+  "page_size_pt": [
+   612.0,
+   792.0
+  ]
+ },
+ {
+  "page": 10,
+  "text": "ROBINSON #1\n//\nBLACK GOLD INDUSTRIES\nSTRATIGRAPHIC CROSS SECTION\n1 0"
+ },
+ {
+  "page": 11,
+  "xref": 50,
+  "file": "page11_x50.png",
+  "px_w": 816,
+  "px_h": 1056,
+  "has_alpha": false,
+  "rects_pt": [
+   [
+    17.197507858276367,
+    127.76776123046875,
+    526.447509765625,
+    787.0177612304688
+   ]
+  ],
+  "page_size_pt": [
+   612.0,
+   792.0
+  ]
+ },
+ {
+  "page": 11,
+  "text": "SOCIAL MEDIA REPORT\n//\nJUNE 2020\n1 1\nAUSTIN CHALK 3,800\u2019"
+ },
+ {
+  "page": 12,
+  "xref": 56,
+  "file": "page12_x56.png",
+  "px_w": 816,
+  "px_h": 1056,
+  "has_alpha": false,
+  "rects_pt": [
+   [
+    16.35600471496582,
+    114.6195068359375,
+    530.1060180664062,
+    779.1195068359375
+   ]
+  ],
+  "page_size_pt": [
+   612.0,
+   792.0
+  ]
+ },
+ {
+  "page": 12,
+  "text": "1 2\nPALUXY 7.700\u2019\nROBINSON #1\n//\nBLACK GOLD INDUSTRIES"
+ },
+ {
+  "page": 13,
+  "xref": 60,
+  "file": "page13_x60.png",
+  "px_w": 816,
+  "px_h": 1056,
+  "has_alpha": false,
+  "rects_pt": [
+   [
+    100.91100311279297,
+    130.6552734375,
+    598.1610107421875,
+    774.1552734375
+   ]
+  ],
+  "page_size_pt": [
+   612.0,
+   792.0
+  ]
+ },
+ {
+  "page": 13,
+  "text": "ROBINSON #1 \n//\nBLACK GOLD INDUSTRIES\nSMACKOVER 15,000\u201d\n1 3"
+ },
+ {
+  "page": 14,
+  "xref": 64,
+  "file": "page14_x64.png",
+  "px_w": 816,
+  "px_h": 1056,
+  "has_alpha": false,
+  "rects_pt": [
+   [
+    58.651607513427734,
+    86.2804183959961,
+    554.7735595703125,
+    721.0398559570312
+   ]
+  ],
+  "page_size_pt": [
+   612.0,
+   792.0
+  ]
+ },
+ {
+  "page": 14,
+  "text": "ROBINSON #1\n//\nBLACK GOLD INDUSTRIES\n1 4\nMYRTLE SPRINGS FIELD\n \nVan zandt county, TX"
+ },
+ {
+  "page": 15,
+  "xref": 69,
+  "file": "page15_x69.png",
+  "px_w": 714,
+  "px_h": 924,
+  "has_alpha": false,
+  "rects_pt": [
+   [
+    43.89659118652344,
+    154.60374450683594,
+    513.1520385742188,
+    755.0289916992188
+   ]
+  ],
+  "page_size_pt": [
+   612.0,
+   792.0
+  ]
+ },
+ {
+  "page": 15,
+  "text": "ROBINSON #1\n//\nBLACK GOLD INDUSTRIES\nTRAVIS PEAK COMPLETION \nFRUITVALEFIELD,VANZANDTCOUNTY,TEXAS \n1 5"
+ },
+ {
+  "page": 16,
+  "xref": 74,
+  "file": "page16_x74.png",
+  "px_w": 816,
+  "px_h": 1056,
+  "has_alpha": false,
+  "rects_pt": [
+   [
+    50.022003173828125,
+    136.76995849609375,
+    520.27197265625,
+    745.7699584960938
+   ]
+  ],
+  "page_size_pt": [
+   612.0,
+   792.0
+  ]
+ },
+ {
+  "page": 16,
+  "text": "ROBINSON #1\n//\nBLACK GOLD INDUSTRIES\nMYRTLE SPRINGS FIELD \n1 6\nVAN ZANDT COUNTY, TEXAS"
+ },
+ {
+  "page": 17,
+  "xref": 79,
+  "file": "page17_x79.png",
+  "px_w": 488,
+  "px_h": 126,
+  "has_alpha": false,
+  "rects_pt": [
+   [
+    97.51799011230469,
+    298.83526611328125,
+    394.98101806640625,
+    375.7403564453125
+   ]
+  ],
+  "page_size_pt": [
+   612.0,
+   792.0
+  ]
+ },
+ {
+  "page": 17,
+  "xref": 81,
+  "file": "page17_x81.png",
+  "px_w": 1290,
+  "px_h": 975,
+  "has_alpha": false,
+  "rects_pt": [
+   [
+    4.598533630371094,
+    194.51626586914062,
+    607.2637939453125,
+    649.6324462890625
+   ]
+  ],
+  "page_size_pt": [
+   612.0,
+   792.0
+  ]
+ },
+ {
+  "page": 17,
+  "text": "ROBINSON #1\n//\nBLACK GOLD INDUSTRIES\nPERMIT\n1 7"
+ },
+ {
+  "page": 18,
+  "xref": 92,
+  "file": "page18_x92.png",
+  "px_w": 714,
+  "px_h": 924,
+  "has_alpha": false,
+  "rects_pt": [
+   [
+    93.9694595336914,
+    102.9560546875,
+    582.05126953125,
+    718.1180419921875
+   ]
+  ],
+  "page_size_pt": [
+   612.0,
+   792.0
+  ]
+ },
+ {
+  "page": 18,
+  "text": "ROBINSON #1\n//\nBLACK GOLD INDUSTRIES\nRCC MAP WITH FRE SITE\n1 8"
+ },
+ {
+  "page": 19,
+  "xref": 97,
+  "file": "page19_x97.png",
+  "px_w": 1032,
+  "px_h": 742,
+  "has_alpha": false,
+  "rects_pt": [
+   [
+    -10.620656967163086,
+    186.41473388671875,
+    623.1293334960938,
+    641.6647338867188
+   ]
+  ],
+  "page_size_pt": [
+   612.0,
+   792.0
+  ]
+ },
+ {
+  "page": 19,
+  "text": "ROBINSON #1\n//\nBLACK GOLD INDUSTRIES\n1 9\nPERMIT PLAT"
+ },
+ {
+  "page": 20,
+  "xref": 101,
+  "file": "page20_x101.png",
+  "px_w": 714,
+  "px_h": 924,
+  "has_alpha": false,
+  "rects_pt": [
+   [
+    25.7294921875,
+    202.2314910888672,
+    617.4794921875,
+    659.7315063476562
+   ]
+  ],
+  "page_size_pt": [
+   612.0,
+   792.0
+  ]
+ },
+ {
+  "page": 20,
+  "text": "ROBINSON #1\n//\nBLACK GOLD INDUSTRIES\n2 0\nTOBIN OWNERSHIP MAP"
+ },
+ {
+  "page": 21,
+  "xref": 105,
+  "file": "page21_x105.png",
+  "px_w": 816,
+  "px_h": 1056,
+  "has_alpha": false,
+  "rects_pt": [
+   [
+    53.76483154296875,
+    129.112060546875,
+    530.3605346679688,
+    738.2952880859375
+   ]
+  ],
+  "page_size_pt": [
+   612.0,
+   792.0
+  ]
+ },
+ {
+  "page": 21,
+  "text": "ROBINSON #1 \n//\nBLACK GOLD INDUSTRIES\n2 1"
+ },
+ {
+  "page": 22,
+  "text": "The East Texas salt structure province covers over eleven (11)\ncounties which includes Van Zandt County. There are approximately\nseventeen 17 Oil and Gas bearing formation in Van Zandt County which\ninclude: Nacatoch, Taylor, Pecan Gap, Austin, Eagle Ford, Woodbine,\nBuda, Grayson, Georgetown, Fredericksburg, Paluxy, Glen Rose,\nRodessa, Pettet, Travis Peak, Cotton Valley and Smackover.\n \nAny of these formations could be a potential trap for accumulating\nmigrating oil and gas. As illustrated in the nearby Quitman Field where\nclose drilling occurred, main and secondary faults can be accurately\ndefined. In this proposed Robinson #1 well, the act of well control\n(number of wells) prevents such close control or mapping of these\nfaults and structures.\n \nThere are four (4) fields surrounding the Robinson #1: The Myrtle\nSprings Field, Edgewood Field, Fruitvale East Field and the Fruitvale\nField. The Robinson #1 is considered an extension of the Fruitvale\nField. Faults that are created by the upward migration of the Louann\nsalt bed have cut through some if not all of the formation above this\nsalt and have created these four (4) surrounding fields as oil an gas\nbecame trapped and accumulate. All of the salt domes in the East Texas\nsalt structure province have created dozens of field throughout the\nprovince and these domes push upward in their migration toward the\nsurface. The probability of undiscovered trapped oil and gas within any\nof these seventeen (17) plus formations is high due to this \"under\ndrilling\" of the Robinson lease.\n \nThis area is termed a \"stacked\"field with potential production\ninmany, fi not all of the shallower formations. No one (1) formation\nmake up these four (4) fields; however, the Smackdown formation is\ntheformation that is sustained, and high production is the common\nfactor throughout.\nROBINSON #1\n//\nBLACK GOLD INDUSTRIES\nMULTIPLE STACKED PROVEN PRODUCTION\n2 2"
+ },
+ {
+  "page": 23,
+  "xref": 114,
+  "file": "page23_x114.png",
+  "px_w": 1020,
+  "px_h": 1320,
+  "has_alpha": false,
+  "rects_pt": [
+   [
+    -19.989748001098633,
+    20.772705078125,
+    593.0037841796875,
+    813.61767578125
+   ]
+  ],
+  "page_size_pt": [
+   612.0,
+   792.0
+  ]
+ },
+ {
+  "page": 23,
+  "text": "ROBINSON #1 \n//\nBLACK GOLD INDUSTRIES"
+ },
+ {
+  "page": 24,
+  "xref": 119,
+  "file": "page24_x119.png",
+  "px_w": 975,
+  "px_h": 1096,
+  "has_alpha": false,
+  "rects_pt": [
+   [
+    23.004865646362305,
+    82.96551513671875,
+    579.169189453125,
+    709.034423828125
+   ]
+  ],
+  "page_size_pt": [
+   612.0,
+   792.0
+  ]
+ },
+ {
+  "page": 24,
+  "text": "ROBINSON #1 \n//\nBLACK GOLD INDUSTRIES"
+ }
+]
